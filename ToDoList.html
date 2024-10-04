@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        #todoList {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="todoInput" placeholder="Add a new task...">
+    <button id="addBtn">Add Task</button>
+    <ul id="todoList"></ul>
+
+    <script>
+        const todoInput = document.getElementById('todoInput');
+        const addBtn = document.getElementById('addBtn');
+        const todoList = document.getElementById('todoList');
+
+        addBtn.addEventListener('click', () => {
+            if (todoInput.value.trim() === '') return;
+
+            const li = document.createElement('li');
+            li.textContent = todoInput.value;
+
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.onclick = () => {
+                todoList.removeChild(li);
+            };
+            const updateBtn = document.createElement('button');
+            updateBtn.textContent = 'Update';
+            updateBtn.onclick = () => {
+                const newTask = prompt('Update your task:', li.textContent);
+                if (newTask) {
+                    li.firstChild.nodeValue = newTask;
+                }
+            };
+
+            li.appendChild(updateBtn);
+            li.appendChild(deleteBtn);
+            todoList.appendChild(li);
+            todoInput.value = '';
+        });
+    </script>
+</body>
+</html>
